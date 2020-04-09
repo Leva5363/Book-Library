@@ -31,10 +31,7 @@ public class App
 
         checkingPass(password);
 
-        System.out.println("Changes for git");
-        System.out.println("Second sout for git");
-        System.out.println("sout for second change");
-        System.out.println("Third change");
+        System.out.println("Fourth change");
     }
 
     public static void checkingPass(String pass){
