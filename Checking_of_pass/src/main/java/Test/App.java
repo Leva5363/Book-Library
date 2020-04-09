@@ -8,14 +8,9 @@ import java.io.InputStreamReader;
  * Hello world!
  *
  */
-public class App
-{
-
-    public static String password;
-
-
-
-    public static void main( String[] args ){
+public class App{
+        public static void main( String[] args ){
+        String password="";
         if(args.length > 0) {
             password = args[0];
         }
@@ -31,7 +26,11 @@ public class App
 
         }
 
-        PasswordValidator.checkingPass(password);
+        if(PasswordValidator.checkingPass(password)){
+            System.out.println("The password accepted");
+        }else{
+            System.out.println("Wrong password");
+        }
 
 
     }
