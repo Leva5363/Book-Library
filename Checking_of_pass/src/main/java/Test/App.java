@@ -33,6 +33,7 @@ public class App
 
         System.out.println("Changes for git");
         System.out.println("Second sout for git");
+        System.out.println("sout for second change");
     }
 
     public static void checkingPass(String pass){
