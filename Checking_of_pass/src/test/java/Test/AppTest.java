@@ -17,22 +17,16 @@ public class AppTest
      * Rigorous Test :-)
      */
     @Test
-    public void shouldAnswerWithTrue()
+    public void shouldAnswerWithTrueAndFalse()
     {
-        assertTrue(PasswordValidator.checkingPass("Sergei1!"));
-        assertTrue(PasswordValidator.checkingPass("5$ASDd"));
-        assertTrue(PasswordValidator.checkingPass("&fG7"));
-        assertTrue(PasswordValidator.checkingPass("df&2U"));
-        assertTrue(PasswordValidator.checkingPass("Of%^f5"));
-    }
-    @Test
-    public void shouldAnswerWithFalse(){
-        assertFalse(PasswordValidator.checkingPass("234`132"));
-        assertFalse(PasswordValidator.checkingPass("Sergei1"));
-        assertFalse(PasswordValidator.checkingPass("sergei1!"));
-        assertFalse(PasswordValidator.checkingPass("sergeiY!"));
-        assertFalse(PasswordValidator.checkingPass("SERGEI!4"));
 
+        assertTrue(PasswordValidator.checkingPass("SergeiIs1!"));
 
+        assertFalse(PasswordValidator.checkingPass("Serg!4"));//Less than 8 symbols
+        assertFalse(PasswordValidator.checkingPass("Sergei1"));//No special symbol
+        assertFalse(PasswordValidator.checkingPass("sergei1!"));// No Upcase Char
+        assertFalse(PasswordValidator.checkingPass("sergeiY!"));//No Digit
+        assertFalse(PasswordValidator.checkingPass("SERGEI!4"));//No Downcase Char
     }
+
 }
