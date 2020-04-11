@@ -3,8 +3,8 @@ package Test;
 import org.passay.*;
 
 public class MyPasswordValidator {
-    public final static int minCountCharacters = 8;
-    public final static int maxCountCharacters =16;
+    public final static int MIN_COUNT_CHARACTERS = 8;
+    public final static int MAX_COUNT_CHARACTERS =16;
 
 
 
@@ -14,7 +14,7 @@ public class MyPasswordValidator {
                 new CharacterRule(EnglishCharacterData.LowerCase),
                 new CharacterRule(EnglishCharacterData.UpperCase),
                 new CharacterRule(EnglishCharacterData.Special),
-                new LengthRule (minCountCharacters,maxCountCharacters));
+                new LengthRule (MIN_COUNT_CHARACTERS,MAX_COUNT_CHARACTERS));
 
         RuleResult result = validator.validate (new PasswordData(pass));
         return result.isValid ();
