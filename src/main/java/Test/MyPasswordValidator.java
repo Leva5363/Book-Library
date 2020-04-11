@@ -3,12 +3,12 @@ package Test;
 import org.passay.*;
 
 public class MyPasswordValidator {
+    public final static int minCountCharacters = 8;
+    public final static int maxCountCharacters =16;
+
 
 
     public static boolean checkingPass (String pass) {
-        int minCountCharacters = 8;
-        int maxCountCharacters =16;
-
         PasswordValidator validator = new PasswordValidator(
                 new CharacterRule(EnglishCharacterData.Digit),
                 new CharacterRule(EnglishCharacterData.LowerCase),
