@@ -26,7 +26,7 @@ public class App{
 
         }
 
-        if(PasswordValidator.checkingPass(password)){
+        if(MyPasswordValidator.checkingPass(password)){
             System.out.println("The password accepted");
         }else{
             System.out.println("Wrong password");

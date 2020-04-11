@@ -20,13 +20,13 @@ public class AppTest
     public void shouldAnswerWithTrueAndFalse()
     {
 
-        assertTrue(PasswordValidator.checkingPass("SergeiIs1!"));
+        assertTrue(MyPasswordValidator.checkingPass("SergeiIs1!"));
 
-        assertFalse(PasswordValidator.checkingPass("Serg!4"));//Less than 8 symbols
-        assertFalse(PasswordValidator.checkingPass("Sergeasdi1"));//No special symbol
-        assertFalse(PasswordValidator.checkingPass("sergeasfi1!"));// No Upcase Char
-        assertFalse(PasswordValidator.checkingPass("sergeasdiY!"));//No Digit
-        assertFalse(PasswordValidator.checkingPass("SERGEZSADI!4"));//No Downcase Char
+        assertFalse(MyPasswordValidator.checkingPass("Serg!4"));//Less than 8 symbols
+        assertFalse(MyPasswordValidator.checkingPass("Sergeasdi1"));//No special symbol
+        assertFalse(MyPasswordValidator.checkingPass("sergeasfi1!"));// No Upcase Char
+        assertFalse(MyPasswordValidator.checkingPass("sergeasdiY!"));//No Digit
+        assertFalse(MyPasswordValidator.checkingPass("SERGEZSADI!4"));//No Downcase Char
     }
 
 }
