@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class Controller {
-    @GetMapping ("/checkingPassword")
-    public HttpStatus HealthStatus (){
+    @GetMapping ("/health")
+    public HttpStatus healthStatus (){
       return HttpStatus.OK;
     }
 
