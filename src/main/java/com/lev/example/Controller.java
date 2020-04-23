@@ -1,4 +1,4 @@
-package example;
+package com.lev.example;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class Controller {
     @GetMapping ("/checkingPassword")
-    public HttpStatus ViewStatus (){
+    public HttpStatus HealthStatus (){
       return HttpStatus.OK;
     }
 
