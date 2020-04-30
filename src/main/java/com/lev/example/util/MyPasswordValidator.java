@@ -1,4 +1,4 @@
-package com.lev.example;
+package com.lev.example.util;
 
 import org.passay.*;
 

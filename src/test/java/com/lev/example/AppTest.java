@@ -3,7 +3,7 @@ package com.lev.example;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-import com.lev.example.MyPasswordValidator;
+import com.lev.example.util.MyPasswordValidator;
 import org.junit.Test;
 
 public class AppTest {

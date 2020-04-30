@@ -1,5 +1,6 @@
-package com.lev.example;
+package com.lev.example.controllers;
 
+import com.lev.example.services.ValidatorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
