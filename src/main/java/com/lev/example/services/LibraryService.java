@@ -1,18 +1,17 @@
 package com.lev.example.services;
 
-import com.lev.example.entity.Books;
+import com.lev.example.entity.Book;
 
-import java.awt.print.Book;
 import java.util.List;
+import java.util.Optional;
 
 public interface LibraryService {
-    List<Books> getBooksByAuthor(int IdAuthor);
+    List<Book> getBooksByAuthor(int IdAuthor);
 
-    List<Books> getAllBooks();
+    List<Book> getAllBooks();
 
-    Books getBooksById(int id);
+    Optional<Book> getBooksById(int id);
 
-    void saveBook(Books book);
-
+    void saveBook(Book book);
 
 }

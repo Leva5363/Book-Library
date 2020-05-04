@@ -1,12 +1,12 @@
 package com.lev.example.services;
 
-import com.lev.example.entity.Books;
+import com.lev.example.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.lev.example.repository.BooksRepository;
 
-
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -16,22 +16,22 @@ public class LibraryServiceImpl implements LibraryService {
     private BooksRepository booksRepository;
 
     @Override
-    public List<Books> getBooksByAuthor(int IdAuthor) {
+    public List<Book> getBooksByAuthor(int IdAuthor) {
         return booksRepository.findByIdAuthor(IdAuthor);
     }
 
     @Override
-    public List<Books> getAllBooks() {
+    public List<Book> getAllBooks() {
         return booksRepository.findAll();
     }
 
     @Override
-    public Books getBooksById(int id) {
+    public Optional<Book> getBooksById(int id) {
         return booksRepository.findById(id);
     }
 
     @Override
-    public void saveBook(Books book) {
+    public void saveBook(Book book) {
         booksRepository.save(book);
 
     }

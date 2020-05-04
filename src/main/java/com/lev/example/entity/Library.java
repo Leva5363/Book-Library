@@ -1,22 +1,20 @@
 package com.lev.example.entity;
 
-
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "LIBRARY")
-public class Library implements Serializable {
+public class Library  {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
 
     @Column(name = "ID_BOOK")
     private int idBook;
 
     @Column(name = "AMOUNT_BOOK")
-    private String amountBook;
+    private int amountBook;
 
     public Library() {
     }
@@ -30,7 +28,7 @@ public class Library implements Serializable {
     }
 
 
-    public String getAmountBook() {
+    public Integer getAmountBook() {
         return amountBook;
     }
 
@@ -43,7 +41,7 @@ public class Library implements Serializable {
         this.idBook = idBook;
     }
 
-    public void setAmountBook(String amountBook) {
+    public void setAmountBook(Integer amountBook) {
         this.amountBook = amountBook;
 
 
