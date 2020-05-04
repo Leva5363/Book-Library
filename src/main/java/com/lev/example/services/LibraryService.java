@@ -1,22 +1,18 @@
 package com.lev.example.services;
 
 import com.lev.example.entity.Books;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.lev.example.repository.BooksRepository;
 
-import javax.transaction.Transactional;
+import java.awt.print.Book;
 import java.util.List;
 
+public interface LibraryService {
+    List<Books> getBooksByAuthor(int IdAuthor);
 
-@Service
-public class LibraryService {
+    List<Books> getAllBooks();
 
-    @Autowired
-    private BooksRepository booksRepository;
+    Books getBooksById(int id);
 
-//    @Transactional
-    public List<Books> getBooksByAuthor(int IdAuthor){
-        return booksRepository.findByIdAuthor(IdAuthor);
-    }
+    void saveBook(Books book);
+
+
 }
