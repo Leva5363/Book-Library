@@ -4,11 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "LIBRARY")
-public class Library  {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Library extends GeneratorIdEntity {
 
     @Column(name = "ID_BOOK")
     private int idBook;
@@ -18,15 +14,6 @@ public class Library  {
 
     public Library() {
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
 
     public Integer getAmountBook() {
         return amountBook;

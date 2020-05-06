@@ -6,11 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "RECORD")
-public class Record {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Record extends GeneratorIdEntity {
 
     @Column(name = "ID_READER")
     private int idReader;
@@ -25,14 +21,6 @@ public class Record {
     private Date returnDate;
 
     public Record() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getIdReader() {

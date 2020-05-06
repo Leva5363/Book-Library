@@ -4,11 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "READER")
-public class Reader  {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Reader extends GeneratorIdEntity {
 
     @Column(name = "NAME")
     private String name;
@@ -17,14 +13,6 @@ public class Reader  {
     private String LastName;
 
     public Reader() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

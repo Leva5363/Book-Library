@@ -28,13 +28,19 @@ public class LibraryController {
         }
 
     @GetMapping("/getBookById")
-    public Optional <Book> getBookById(@RequestParam int id) {
-            return libraryService.getBooksById(id);
+    public Book getBookById(@RequestParam int id) {
+            return libraryService.getBooksById(id).get();
     }
 
     @PostMapping("/saveBook")
     public HttpStatus saveBookStatus(@RequestBody Book book) {
         libraryService.saveBook(book);
+        return HttpStatus.CREATED;
+    }
+
+    @PostMapping("/addBookToLibrary")
+    public HttpStatus addBookToLibrary(@RequestParam int amount){
+        libraryService.addBookToLibrary(amount);
         return HttpStatus.CREATED;
     }
 }
