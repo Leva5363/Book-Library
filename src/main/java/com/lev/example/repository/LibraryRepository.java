@@ -8,6 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LibraryRepository extends JpaRepository <Library, Integer> {
 
-    @Query(value = "insert into LIBRARY(AMOUNT_BOOK) values(amount)", nativeQuery = true)
-    void addBookToLibrary(int amount);
 }

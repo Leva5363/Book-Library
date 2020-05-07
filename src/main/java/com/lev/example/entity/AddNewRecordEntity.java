@@ -1,30 +1,23 @@
 package com.lev.example.entity;
 
+public class AddNewRecordEntity {
 
-import javax.persistence.*;
-import java.util.Date;
 
-@Entity
-@Table(name = "RECORD")
-public class Record extends GeneratorIdEntity {
-
-    @Column(name = "ID_READER")
     private int idReader;
 
-    @Column(name = "ID_BOOK")
+
     private int idBook;
 
-    @Column(name = "DATE_TAKE")
-    private Date dateTake;
 
-    @Column(name = "RETURN_DATE")
-    private Date returnDate;
+    private String dateTake;
 
-    public Record() {
+
+    private String returnDate;
+
+    public AddNewRecordEntity() {
     }
 
-    public Record(int idReader, int idBook, Date dateTake, Date returnDate) {
-        super();
+    public AddNewRecordEntity(int idReader, int idBook, String dateTake, String returnDate) {
         this.idReader = idReader;
         this.idBook = idBook;
         this.dateTake = dateTake;
@@ -47,19 +40,19 @@ public class Record extends GeneratorIdEntity {
         this.idBook = idBook;
     }
 
-    public Date getDateTake() {
+    public String getDateTake() {
         return dateTake;
     }
 
-    public void setDateTake(Date dateTake) {
+    public void setDateTake(String dateTake) {
         this.dateTake = dateTake;
     }
 
-    public Date getReturnDate() {
+    public String getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
     }
 }
