@@ -30,7 +30,13 @@ public class Library extends GeneratorIdEntity {
 
     public void setAmountBook(Integer amountBook) {
         this.amountBook = amountBook;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Library{" +
+                "idBook=" + idBook +
+                ", amountBook=" + amountBook +
+                '}';
     }
 }

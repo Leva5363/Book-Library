@@ -10,4 +10,7 @@ import java.util.List;
 public interface RecordRepository extends JpaRepository <Record, Integer> {
 
     List<Record> findAllByIdReader(int idReader);
+
+    Record findByIdReaderAndIdBook(int idReader, int idBook);
+
 }

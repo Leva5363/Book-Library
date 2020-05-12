@@ -30,4 +30,12 @@ public class Book extends GeneratorIdEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "idAuthor=" + idAuthor +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -17,7 +17,7 @@ public class Record extends GeneratorIdEntity {
     @Column(name = "DATE_TAKE")
     private Date dateTake;
 
-    @Column(name = "RETURN_DATE")
+    @Column(name = "DATE_RETURN")
     private Date returnDate;
 
     public Record() {
@@ -61,5 +61,15 @@ public class Record extends GeneratorIdEntity {
 
     public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Record{" +
+                "idReader=" + idReader +
+                ", idBook=" + idBook +
+                ", dateTake=" + dateTake +
+                ", returnDate=" + returnDate +
+                '}';
     }
 }

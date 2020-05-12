@@ -2,12 +2,14 @@ package com.lev.example.services;
 
 import com.lev.example.entity.Book;
 import com.lev.example.entity.Library;
-import com.lev.example.entity.Record;
+import com.lev.example.messages.AddNewRecordRequest;
+import com.lev.example.messages.CloseRecordRequest;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface LibraryService {
+
     List<Book> getBooksByAuthor(int idAuthor);
 
     List<Book> getAllBooks();
@@ -16,9 +18,9 @@ public interface LibraryService {
 
     void saveBook(Book book);
 
-    void addBookToLibrary(Library library);
+    void setAmountOfSpecificBook(Library library);
 
-    void newRecord(Record record);
+    void newRecord(AddNewRecordRequest addNewRecordRequest);
 
-    void closeRecord(Record record);
+    void closeRecord(CloseRecordRequest closeRecordRequest);
 }

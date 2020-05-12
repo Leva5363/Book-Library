@@ -1,15 +1,17 @@
 package com.lev.example.services;
 
+
 import com.lev.example.entity.Book;
 import com.lev.example.entity.Library;
 import com.lev.example.entity.Record;
+import com.lev.example.messages.AddNewRecordRequest;
+import com.lev.example.messages.CloseRecordRequest;
 import com.lev.example.repository.LibraryRepository;
 import com.lev.example.repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.lev.example.repository.BooksRepository;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +29,8 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Autowired
     RecordRepository recordRepository;
+
+
 
     @Override
     public List<Book> getBooksByAuthor(int idAuthor) {
@@ -49,29 +53,42 @@ public class LibraryServiceImpl implements LibraryService {
         }
 
     @Override
-    public void addBookToLibrary(Library library) {
+    public void setAmountOfSpecificBook(Library library) {
         libraryRepository.save(library);
 
     }
 
     @Override
-    public void newRecord(Record record) {
-        if (libraryRepository.findById(record.getIdBook()).get().getAmountBook()>0) {
+    public void newRecord(AddNewRecordRequest addNewRecordRequest) {
+
+        Record record = new Record(addNewRecordRequest.getIdReader(),addNewRecordRequest.getIdBook(),
+                java.sql.Date.valueOf(addNewRecordRequest.getDateTake()),
+                null);
+
+        int amountOfSpecificBook = libraryRepository.findById(record.getIdBook()).get().getAmountBook();
+        List <Record> allRecordsOfSpecificReader = recordRepository.findAllByIdReader(record.getIdReader());
+        long oneYear = 31536000000L;
+
+
+        //Checking if there is enough such a book in the library
+        if (amountOfSpecificBook > 0) {
 
        } else {
            System.out.println("No such a book");
            return;
        }
-       if (recordRepository.findAllByIdReader(record.getIdReader()).size()>3) {
+
+       //Checking if the reader has less than 3 books
+       if (allRecordsOfSpecificReader.size()<4) {
 
        } else {
            System.out.println("The reader has more than 3 books");
            return;
        }
 
+       //Checking if the reader hasn't the same book he wants to take
         ArrayList <Integer> idBookList = new ArrayList<>();
-        ArrayList <Date> dateTakeList = new ArrayList<>();
-       for (Record r:recordRepository.findAllByIdReader(record.getIdReader())) {
+       for (Record r:allRecordsOfSpecificReader) {
             idBookList.add(r.getIdBook());
        }
 
@@ -82,29 +99,36 @@ public class LibraryServiceImpl implements LibraryService {
            }
        }
 
-        for (Record r:recordRepository.findAllByIdReader(record.getIdReader())) {
-           if(r.getReturnDate().equals(null)) {
+       //Checking if the reader hasn't overtaken book
+        ArrayList <Date> dateTakeList = new ArrayList<>();
+
+        for (Record r:allRecordsOfSpecificReader) {
+           if(r.getReturnDate()==null) {
                dateTakeList.add(r.getDateTake());
            }
         }
 
-
         for(Date date : dateTakeList) {
            Date todayDate = new Date();
            Long difInMinus = todayDate.getTime() - date.getTime();
-           if (difInMinus > 31536000) {
+           if (difInMinus > oneYear) {
+               System.out.println("The reader has overtaken book");
                return;
            }
         }
 
+        //Adding new Record
         recordRepository.save(record);
 
         }
 
     @Override
-    public void closeRecord(Record record) {
-        recordRepository.findById(record.getIdBook()).get().setReturnDate(record.getReturnDate());
+    public void closeRecord(CloseRecordRequest closeRecordRequest) {
+        Record record = recordRepository.findByIdReaderAndIdBook(closeRecordRequest.getIdReader(), closeRecordRequest.getIdBook());
+
+        record.setReturnDate(new java.sql.Date(new Date().getTime()));
+        recordRepository.save(record);
     }
-
-
 }
+
+

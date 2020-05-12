@@ -1,17 +1,14 @@
 package com.lev.example.controllers;
 
-
-import com.lev.example.entity.AddNewRecordEntity;
+import com.lev.example.messages.AddNewRecordRequest;
 import com.lev.example.entity.Book;
 import com.lev.example.entity.Library;
-import com.lev.example.entity.Record;
+import com.lev.example.messages.CloseRecordRequest;
 import com.lev.example.services.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.sql.Date;
 import java.util.List;
 
 
@@ -43,25 +40,21 @@ public class LibraryController {
         return HttpStatus.CREATED;
     }
 
-    @PostMapping("/addBookToLibrary")
-    public HttpStatus addBookToLibrary(@RequestBody Library library){
-        libraryService.addBookToLibrary(library);
-        return HttpStatus.CREATED;
+    @PostMapping("/setAmountOfSpecificBook")
+    public HttpStatus setAmountOfSpecificBook(@RequestBody Library library){
+        libraryService.setAmountOfSpecificBook(library);
+        return HttpStatus.ACCEPTED;
     }
 
     @PostMapping("/newRecord")
-        public HttpStatus newRecord(@RequestBody AddNewRecordEntity addNewRecordEntity) {
-        System.out.println(" Date take is "+addNewRecordEntity.getDateTake());
-        Record record = new Record(addNewRecordEntity.getIdBook(),addNewRecordEntity.getIdReader(),
-                Date.valueOf(addNewRecordEntity.getDateTake()),
-                Date.valueOf(addNewRecordEntity.getReturnDate()));
-        libraryService.newRecord(record);
+        public HttpStatus newRecord(@RequestBody AddNewRecordRequest addNewRecordRequest) {
+        libraryService.newRecord(addNewRecordRequest);
         return HttpStatus.CREATED;
         }
 
-        @PostMapping("/closeRecord")
-    public HttpStatus closeRecord(@RequestBody Record record) {
-        libraryService.closeRecord(record);
+        @PutMapping("/closeRecord")
+    public HttpStatus closeRecord(@RequestBody CloseRecordRequest closeRecordRequest) {
+        libraryService.closeRecord(closeRecordRequest);
         return HttpStatus.ACCEPTED;
         }
 }
