@@ -23,13 +23,6 @@ public class Record extends GeneratorIdEntity {
     public Record() {
     }
 
-    public Record(int idReader, int idBook, Date dateTake, Date returnDate) {
-        super();
-        this.idReader = idReader;
-        this.idBook = idBook;
-        this.dateTake = dateTake;
-        this.returnDate = returnDate;
-    }
 
     public int getIdReader() {
         return idReader;
