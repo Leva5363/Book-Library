@@ -17,8 +17,5 @@ public class MyPasswordValidator {
 
         RuleResult result = validator.validate (new PasswordData(pass));
         return result.isValid ();
-
     }
-
-
 }
