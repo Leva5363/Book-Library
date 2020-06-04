@@ -17,6 +17,10 @@ public abstract class GeneratorIdEntity {
     public GeneratorIdEntity() {
     }
 
+    public GeneratorIdEntity(int id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

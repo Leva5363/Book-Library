@@ -14,11 +14,11 @@ public interface LibraryService {
 
     List<Book> getAllBooks();
 
-    Optional<Book> getBooksById(int id);
+    Optional<Book> getBookById(int id);
 
     void saveBook(Book book);
 
-    void setAmountOfSpecificBook(Library library);
+    void setAmountOfSpecificBook(int idBook, int amount);
 
     void newRecord(AddNewRecordRequest addNewRecordRequest);
 

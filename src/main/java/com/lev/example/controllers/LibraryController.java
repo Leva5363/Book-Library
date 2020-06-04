@@ -2,8 +2,8 @@ package com.lev.example.controllers;
 
 import com.lev.example.messages.AddNewRecordRequest;
 import com.lev.example.entity.Book;
-import com.lev.example.entity.Library;
 import com.lev.example.messages.CloseRecordRequest;
+import com.lev.example.messages.SetAmountRequest;
 import com.lev.example.services.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,13 +25,13 @@ public class LibraryController {
     }
 
     @GetMapping("/getAllBooks")
-        public List <Book> getAllBooks() {
+    public List <Book> getAllBooks() {
         return libraryService.getAllBooks();
-        }
+    }
 
     @GetMapping("/getBookById")
     public Book getBookById(@RequestParam int id) {
-            return libraryService.getBooksById(id).get();
+        return libraryService.getBookById(id).get();
     }
 
     @PostMapping("/saveBook")
@@ -41,20 +41,20 @@ public class LibraryController {
     }
 
     @PostMapping("/setAmountOfSpecificBook")
-    public HttpStatus setAmountOfSpecificBook(@RequestBody Library library){
-        libraryService.setAmountOfSpecificBook(library);
+    public HttpStatus setAmountOfSpecificBook(@RequestBody SetAmountRequest setAmountRequest){
+        libraryService.setAmountOfSpecificBook(setAmountRequest.getIdBook(), setAmountRequest.getAmount());
         return HttpStatus.ACCEPTED;
     }
 
     @PostMapping("/newRecord")
-        public HttpStatus newRecord(@RequestBody AddNewRecordRequest addNewRecordRequest) {
+    public HttpStatus newRecord(@RequestBody AddNewRecordRequest addNewRecordRequest) {
         libraryService.newRecord(addNewRecordRequest);
         return HttpStatus.CREATED;
-        }
+    }
 
-        @PutMapping("/closeRecord")
+    @PutMapping("/closeRecord")
     public HttpStatus closeRecord(@RequestBody CloseRecordRequest closeRecordRequest) {
         libraryService.closeRecord(closeRecordRequest);
         return HttpStatus.ACCEPTED;
-        }
+    }
 }

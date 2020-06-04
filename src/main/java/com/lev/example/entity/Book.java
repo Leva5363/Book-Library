@@ -15,6 +15,12 @@ public class Book extends GeneratorIdEntity {
     public Book() {
     }
 
+    public Book(int idAuthor, String name) {
+        super();
+        this.idAuthor = idAuthor;
+        this.name = name;
+    }
+
     public int getIdAuthor() {
         return idAuthor;
     }

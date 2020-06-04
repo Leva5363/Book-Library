@@ -4,10 +4,7 @@ package com.lev.example.services;
 import com.lev.example.entity.Book;
 import com.lev.example.entity.Library;
 import com.lev.example.entity.Record;
-import com.lev.example.exceptions.NoSuchBookException;
-import com.lev.example.exceptions.OverLimitBooksException;
-import com.lev.example.exceptions.OverLimitTimeUsingBookException;
-import com.lev.example.exceptions.TakeSameBookException;
+import com.lev.example.exceptions.*;
 import com.lev.example.messages.AddNewRecordRequest;
 import com.lev.example.messages.CloseRecordRequest;
 import com.lev.example.repository.LibraryRepository;
@@ -25,17 +22,17 @@ import java.util.Optional;
 @Service
 public class LibraryServiceImpl implements LibraryService {
 
-    static final long ONE_YEAR = 31536000000L;
-    static final int LIMIT_BOOKS = 4;
+    private static final long ONE_YEAR = 31536000000L;
+    private static final int LIMIT_BOOKS = 3;
 
     @Autowired
     private BooksRepository booksRepository;
 
     @Autowired
-    LibraryRepository libraryRepository;
+    private LibraryRepository libraryRepository;
 
     @Autowired
-    RecordRepository recordRepository;
+    private RecordRepository recordRepository;
 
 
 
@@ -50,73 +47,78 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public Optional<Book> getBooksById(int id) {
+    public Optional<Book> getBookById(int id) {
         return booksRepository.findById(id);
     }
 
     @Override
     public void saveBook(Book book) {
         booksRepository.save(book);
-        }
+    }
 
     @Override
-    public void setAmountOfSpecificBook(Library library) {
-        libraryRepository.save(library);
-
+    public void setAmountOfSpecificBook(int idBook, int amount) {
+        Library libraryBook = libraryRepository.findByIdBook(idBook)
+                .orElseThrow(NotFoundIdBookException::new);
+        libraryBook.setAmountBook(amount);
+        libraryRepository.save(libraryBook);
     }
 
     @Override
     public void newRecord(AddNewRecordRequest addNewRecordRequest) {
+        int idBook = addNewRecordRequest.getIdBook();
+        int idReader = addNewRecordRequest.getIdReader();
+        Library bookRecord = libraryRepository.findByIdBook(idBook)
+                .orElseThrow(NotFoundIdBookException::new);
 
-        Record record = new Record();
-        record.setIdReader(addNewRecordRequest.getIdReader());
-        record.setIdBook(addNewRecordRequest.getIdReader());
-        record.setDateTake(new java.sql.Date(new Date().getTime()));
+        int amountOfSpecificBook = bookRecord.getAmountBook();
+        List <Record> allRecordsOfSpecificReader = recordRepository
+                .findAllByIdReader(idReader);
 
-        int amountOfSpecificBook = libraryRepository.findByIdBook(record.getIdBook()).get().getAmountBook();
-        List <Record> allRecordsOfSpecificReader = recordRepository.findAllByIdReader(record.getIdReader());
-
-
-
-        //Checking if there is enough such a book in the library
-        if (amountOfSpecificBook > 0) {
-
-       } else {
-           throw new NoSuchBookException();
-       }
-
-       //Checking if the reader has less than 3 books
-       if (allRecordsOfSpecificReader.size()<LIMIT_BOOKS) {
-
-       } else {
-           throw new OverLimitBooksException();
-       }
-
-       //Checking if the reader hasn't the same book he wants to take
-        allRecordsOfSpecificReader.stream()
-                .map(Record::getIdBook)
-                .filter(i->i.equals(record.getIdBook()))
-                .findAny().orElseThrow(TakeSameBookException::new);
-
-
-       //Checking if the reader hasn't overtaken book
-        allRecordsOfSpecificReader.stream()
-                .filter(d->d.getReturnDate()==null)
-                .map(Record::getDateTake)
-                .map(x->new Date().getTime()-x.getTime())
-                .filter(x->x>ONE_YEAR).findAny().orElseThrow(OverLimitTimeUsingBookException::new);
-
-        //Adding new Record
-        recordRepository.save(record);
-
+        if (amountOfSpecificBook == 0) {
+            throw new NoSuchBookException();
         }
+        else  if (allRecordsOfSpecificReader.size() > LIMIT_BOOKS) {
+            throw new OverLimitBooksException();
+        }
+        else if (!checkingTheSameBook(allRecordsOfSpecificReader, idBook)){
+            throw new TakeSameBookException();
+        }
+        else if (!checkingOvertakenBook(allRecordsOfSpecificReader)){
+            throw new OverLimitTimeUsingBookException();
+        }
+        else {
+            //Adding new Record
+            Record record = new Record();
+            record.setIdReader(addNewRecordRequest.getIdReader());
+            record.setIdBook(addNewRecordRequest.getIdReader());
+            record.setDateTake(new java.sql.Date(new Date().getTime()));
+
+            recordRepository.save(record);
+        }
+    }
 
     @Override
     public void closeRecord(CloseRecordRequest closeRecordRequest) {
-        Record record = recordRepository.findByIdReaderAndIdBook(closeRecordRequest.getIdReader(), closeRecordRequest.getIdBook());
-
+        Book book = booksRepository.findById(closeRecordRequest.getId())
+                .orElseThrow(NoSuchRecordException::new);
+        Record record = recordRepository.findById(book.getId()).get();
         record.setReturnDate(new java.sql.Date(new Date().getTime()));
         recordRepository.save(record);
+    }
+
+    //Methods for newRecord method
+    private boolean checkingTheSameBook(List<Record> allRecordsOfSpecificReader, int idBook){
+        return allRecordsOfSpecificReader.stream()
+                .noneMatch(i->i.getIdBook() == idBook);
+
+    }
+
+    private boolean checkingOvertakenBook(List<Record> allRecordsOfSpecificReader){
+        Date today = new Date();
+        return allRecordsOfSpecificReader.stream()
+                .filter(d->d.getReturnDate() == null)
+                .allMatch(i->i.getReturnDate() != null || i.getDateTake().getTime() > today.getTime() - ONE_YEAR);
     }
 }
 

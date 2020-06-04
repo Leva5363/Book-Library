@@ -2,33 +2,23 @@ package com.lev.example.messages;
 
 public class CloseRecordRequest {
 
-    private int idReader;
-    private int idBook;
+    private int id;
 
     public CloseRecordRequest() {
     }
 
-    public int getIdReader() {
-        return idReader;
+    public int getId() {
+        return id;
     }
 
-    public void setIdReader(int idReader) {
-        this.idReader = idReader;
-    }
-
-    public int getIdBook() {
-        return idBook;
-    }
-
-    public void setIdBook(int idBook) {
-        this.idBook = idBook;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "CloseRecordRequest{" +
-                "idReader=" + idReader +
-                ", idBook=" + idBook +
+                "id=" + id +
                 '}';
     }
 }
