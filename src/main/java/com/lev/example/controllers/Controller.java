@@ -16,3 +16,4 @@ public class Controller {
         return ValidatorService.checkPassword(pas);
     }
 }
+ 
