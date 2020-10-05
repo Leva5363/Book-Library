@@ -8,26 +8,19 @@ services:
         - "8080:8080"
       depends_on:
         - dbpostgresql
-        - adminer
+
   dbpostgresql:
-      image: postgres
+      image: library
       ports:
-        - "5432:5432"
+        - "5434:5432"
       volumes:
         # Persist the data between container invocations
         #- ./my-postgres.conf:/etc/postgresql.conf
-        - ./dataRami.sql:/var/lib/postgresql/data
+        - ./datapostgres.sql:/var/lib/postgresql/data
       #- ./data.sql:/docker-entrypoint-initdb.d/init.sql
       environment:
-        - POSTGRES_PASSWORD=postgres
-        - POSTGRES_USER=postgres
-        - POSTGRES_DB=postgres
+        - POSTGRES_PASSWORD=undergroundpscrew32
+        - POSTGRES_USER=leva5363
+        - POSTGRES_DB=Library
         - PGDATA=/var/lib/postgresql/data
-
-
-  adminer:
-      image: adminer
-      restart: always
-      ports:
-        - 8000:8000
 

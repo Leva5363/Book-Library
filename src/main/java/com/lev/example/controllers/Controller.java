@@ -4,6 +4,7 @@ import com.lev.example.services.ValidatorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 public class Controller {
     @GetMapping ("/health")
@@ -16,4 +17,3 @@ public class Controller {
         return ValidatorService.checkPassword(pas);
     }
 }
- 
